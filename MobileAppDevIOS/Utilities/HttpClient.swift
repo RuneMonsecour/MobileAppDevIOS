@@ -13,7 +13,7 @@ class HttpClient {
 		baseUrl: "https://api.spoonacular.com/",
 		headers: [
 			"Content-Type": "application/json",
-			"x-api-key": ENV.apiKey
+			"x-api-key": "dbb43716ad724a4da009b1f921c985e7"
 		]
 	)
 	
