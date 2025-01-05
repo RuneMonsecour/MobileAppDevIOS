@@ -60,7 +60,7 @@ struct RecipeDetailsView: View {
 								}
 							}
 						}
-					}.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top).padding(5)
+					}.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top).padding(10)
 					
 					NavigationLink(
 						destination: CalendarView(

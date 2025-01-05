@@ -33,12 +33,10 @@ class HttpClient {
 		do {
 			var components = URLComponents(url: baseURL.appendingPathComponent(endpoint), resolvingAgainstBaseURL: true)!
 			
-			// Add query parameters
 			components.queryItems = queryItems
 			
-			// Ensure the final URL is valid
 			guard let url = components.url else {
-				return .failure(500, "Verkeerde URL")
+				return .failure(500, "Wrong URL")
 			}
 			
 			let (data, response) = try await session.data(
@@ -46,18 +44,29 @@ class HttpClient {
 			)
 	
 			guard let httpResponse = response as? HTTPURLResponse else {
-				return .failure(500, "Verkeerd server antwoord.")
+				return .failure(500, "Wrong server response.")
 			}
 			
 			if (200...299).contains(httpResponse.statusCode) {
 				let decodedObject = try JSONDecoder().decode(T.self, from: data)
 				return .success(httpResponse.statusCode, decodedObject)
 			} else {
-				return .failure(httpResponse.statusCode, String(httpResponse.statusCode) + ": Er ging iets fout.")
+				return .failure(
+					httpResponse.statusCode,
+					String(httpResponse.statusCode) + ": " + HttpClient
+						.getMessageFromStatusCode(code: httpResponse.statusCode))
 			}
 		} catch {
-			return .failure(400, "Netwerk fout")
+			return .failure(400, "Network error")
 		}
+	}
+	
+	static func getMessageFromStatusCode(code: Int) -> String {
+		let dict = [
+			404: "Not found.",
+			429: "Sent too many requests. Please wait a bit.",
+		]
+		return dict[code] ?? "Something wnet wrong."
 	}
 }
 

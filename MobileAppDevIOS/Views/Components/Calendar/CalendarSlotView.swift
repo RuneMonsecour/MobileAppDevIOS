@@ -13,29 +13,31 @@ struct CalendarSlotView: View {
 	var isDisabled = false
 	
 	var body: some View {
-		VStack(alignment: .center){
-			
-			Text("\(date.day)").padding(3)
-				.foregroundStyle(Date().equals(date) ? .white : isDisabled ? .secondaryText : .primaryText)
-				.background(
-					Date()
-						.equals(date) ? Circle()
-						.fill(.accent).frame(width: 30)
-						 : Circle()
-						.fill(.clear).frame()
-				)
-			
-			let plannedRecipeCount = dayRecipes?.values.flatMap({$0}).count ?? 0
-			if(plannedRecipeCount > 0) {
-				CalendarPlannedRecipeView(
-					plannedRecipeCount: plannedRecipeCount
-				)
-			}
-			
-		}.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top).border(
-			.gray,
-			width: 0.5
-		)
+			VStack(alignment: .center){
+				ScrollView() {
+				
+				Text("\(date.day)").padding(3)
+					.foregroundStyle(Date().equals(date) ? .white : isDisabled ? .secondaryText : .primaryText)
+					.background(
+						Date()
+							.equals(date) ? Circle()
+							.fill(.accent).frame(width: 30)
+						: Circle()
+							.fill(.clear).frame()
+					).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+				
+				let plannedRecipeCount = dayRecipes?.values.flatMap({$0}).count ?? 0
+				if(plannedRecipeCount > 0) {
+					CalendarPlannedRecipeView(
+						plannedRecipeCount: plannedRecipeCount
+					)
+				}
+				
+				}.scrollDisabled(true).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top).border(
+				.gray,
+				width: 0.5
+			)
+		}
 	}
 }
 

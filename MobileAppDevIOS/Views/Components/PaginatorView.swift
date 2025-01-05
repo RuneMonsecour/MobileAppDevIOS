@@ -23,15 +23,18 @@ struct PaginatorView: View {
 				
 				let dOffset = Double(offset)
 				let dTotal = Double(totalResults)
-				let dNumber = Double(number)
+				let dNumber = Double(max(1, number))
+				
+				let sCurrentPage = String(
+					Int(ceil(dOffset/dNumber)) + 1
+				)
+				let sTotalPages = String(
+					Int(ceil(dTotal/dNumber))
+				)
 				Text(
-					String(
-						ceil(dOffset/dNumber) + 1
-					)
+					sCurrentPage
 					+ "/" +
-					String(
-						ceil(dTotal/dNumber)
-					)
+					sTotalPages
 				)
 				
 				Button(action: {onChangePage(offset + number)}) {
