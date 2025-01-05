@@ -28,18 +28,11 @@ class CalendarDayService {
 	}
 	
 	private func getPlannedRecipes(date: Date) -> [EMealTime: [Recipe]] {
-		if let dayRecipesData = UserDefaults.standard.data(
-			forKey: date.toString(format: "dd-MM-yy")
-		) {
-			if let dayRecipesDecoded = try? JSONDecoder().decode([EMealTime: [Recipe]].self, from: dayRecipesData) {
-				return dayRecipesDecoded
-			}
-		}
-		return [:]
+		return LocalStorage.get(forKey: date.toString(format: "dd-MM-yy")) ?? [:]
 	}
 	
 	private func setPlannedRecipes(date: Date, dayRecipes: [EMealTime: [Recipe]]) {
-		UserDefaults.standard.set(try? JSONEncoder().encode(dayRecipes), forKey: date.toString(format: "dd-MM-yy"))
+		LocalStorage.set(data: dayRecipes, forKey: date.toString(format: "dd-MM-yy"))
 	}
 	
 	func addPlannedRecipe(recipe: Recipe, mealTime: EMealTime, date: Date) {

@@ -8,11 +8,12 @@
 import Foundation
 
 class HttpClient {
+	
 	static let spoonacular = HttpClient(
 		baseUrl: "https://api.spoonacular.com/",
 		headers: [
 			"Content-Type": "application/json",
-			"x-api-key": "dabdd47c37094522bc4857a71d09ddce"
+			"x-api-key": ""
 		]
 	)
 	

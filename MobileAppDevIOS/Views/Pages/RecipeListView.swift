@@ -53,13 +53,10 @@ struct RecipeListView: View {
 						}.frame(maxWidth: .infinity)
 					}.background(RoundedRectangle(cornerRadius: 20).fill(.whiteLight))
 					
-					Button(action: {handleClickFavorite()}) {
-						Image(
-							viewModel.showFavorites ? .starFillIcon : .starIcon
-						).imageScale(.large).foregroundStyle(
-							viewModel.showFavorites ? .accent : .primaryText
-						)
-					}
+					FavoriteButtonView(
+						action: handleClickFavorite,
+						isFavorite: viewModel.showFavorites
+					)
 				}.padding(.bottom, 10).padding(.horizontal, 20)
 				
 				VStack{

@@ -14,8 +14,11 @@ class RecipeDetailsViewModel: ObservableObject {
 	@Published private(set) var isLoading = false
 	@Published private(set) var error: String? = nil
 	
+	@Published private(set) var isFavorited = false
+	
 	init(recipeService: RecipeService, recipe: Recipe) {
 		self.recipeService = recipeService
+		isFavorited = recipeService.isRecipeFavorated(recipeId: recipe.id)
 		
 		Task {
 			await retrieveRecipe(id: recipe.id)
@@ -33,7 +36,7 @@ class RecipeDetailsViewModel: ObservableObject {
 		} else {
 			recipe = Recipe
 				.Information(
-					id: 9,
+					id: 2,
 					title: "pizza",
 					image: "",
 					summary: "yqsrgfguyirysdrygyrgyfd ggdfsg idfs hdfsyidsfyh dsfydydf  dsfgiuhdssdfuyi ufhf ou",
@@ -46,6 +49,26 @@ class RecipeDetailsViewModel: ObservableObject {
 		isLoading = false;
 	}
 	
+	func toggleFavorite() {
+		if(recipe == nil) {
+			return
+		}
+		
+		if(isFavorited) {
+			recipeService.removeFavoriteRecipe(recipeId: recipe!.id)
+		} else {
+			recipeService
+				.addFavoriteRecipe(
+					recipe: Recipe(
+						id: recipe!.id,
+						title: recipe!.title,
+						image: recipe!.image
+					)
+				)
+		}
+		
+		isFavorited = !isFavorited
+	}
 }
 
 

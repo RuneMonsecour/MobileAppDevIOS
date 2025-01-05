@@ -27,6 +27,10 @@ struct RecipeDetailsView: View {
 		)
 	}
 	
+	func handleClickFavorite() {
+		viewModel.toggleFavorite()
+	}
+
 	var body: some View {
 		NavigationStack {
 			AsyncDataView(
@@ -69,7 +73,14 @@ struct RecipeDetailsView: View {
 					
 				}.frame(maxWidth: .infinity, maxHeight: .infinity).background(.whiteLightest).navigationTitle(
 					"\(viewModel.recipe?.title ?? "")"
-				)
+				).toolbar {
+					ToolbarItem() {
+						FavoriteButtonView(
+							action: handleClickFavorite,
+							isFavorite: viewModel.isFavorited
+						)
+					}
+				}
 			}
 		}
 	}

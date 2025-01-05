@@ -19,10 +19,17 @@ class RecipeService {
 	}
 	
 	func getFavoriteRecipes(query: String = "") -> Result<Recipe.ComplexSearch> {
+		let favorates = getFavorites()
 		return Result
 			.success(
 				200,
-				Recipe.ComplexSearch(results: [Recipe(id: 2, title: "Pizza", image: ""),Recipe(id: 24, title: "qweqwe", image: ""),Recipe(id: 22, title: "cvbcvb", image: ""),Recipe(id: 23, title: "sdfsdf", image: ""),Recipe(id: 255, title: "yukyuk", image: "")], offset: 0, number: 5, totalResults: 5)
+				Recipe
+					.ComplexSearch(
+						results: favorates,
+						offset: 0,
+						number: 5,
+						totalResults: favorates.count
+					)
 			)
 	}
 	
@@ -31,4 +38,34 @@ class RecipeService {
 			endpoint: "recipes/" + String(id) + "/information"
 		)
 	}
+	
+	private func getFavorites() -> [Recipe] {
+		return LocalStorage.get(forKey: "favoriteRecipes") ?? [Recipe(id: 2, title: "Pizza", image: ""),Recipe(id: 24, title: "qweqwe", image: ""),Recipe(id: 22, title: "cvbcvb", image: ""),Recipe(id: 23, title: "sdfsdf", image: ""),Recipe(id: 255, title: "yukyuk", image: "")]
+	}
+	
+	private func setFavorites(recipes: [Recipe]) {
+		LocalStorage.set(data: recipes, forKey: "favoriteRecipes")
+	}
+	
+	func isRecipeFavorated(recipeId: Int) -> Bool {
+		return getFavorites().contains(where: {recipe in recipe.id == recipeId})
+	}
+	
+	func addFavoriteRecipe(recipe: Recipe) {
+		var favorates = getFavorites()
+		favorates.append(recipe)
+		setFavorites(recipes: favorates)
+	}
+	
+	func removeFavoriteRecipe(recipeId: Int) {
+		print(recipeId)
+		var favorates = getFavorites()
+		print(favorates)
+		favorates.removeAll(where: {recipe in recipe.id == recipeId})
+		print(favorates)
+		setFavorites(recipes: favorates)
+	}
 }
+
+
+
