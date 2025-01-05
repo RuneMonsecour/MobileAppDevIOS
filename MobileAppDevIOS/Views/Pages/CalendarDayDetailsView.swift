@@ -59,7 +59,7 @@ struct CalendarDayDetailsView: View {
 						slotDestinationOverride: getSlotDestination
 					)
 				) {
-					ButtonView(text: "Voeg recept toe")
+					ButtonView(text: "Add recipe")
 				}
 			}.frame(maxWidth: .infinity, maxHeight: .infinity).background(.whiteLightest)
 				.navigationTitle("\(viewModel.calendarDay.date.toString(format: "EEEE d"))")

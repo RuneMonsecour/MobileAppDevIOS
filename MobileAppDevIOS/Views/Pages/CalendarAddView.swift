@@ -18,14 +18,14 @@ struct CalendarAddView: View {
 	
     var body: some View {
 			VStack {
-				LabeledValueView(label: "Recept", value: "\(viewModel.recipe.title)")
+				LabeledValueView(label: "Recipe", value: "\(viewModel.recipe.title)")
 				DividerView()
 				
-				LabeledValueView(label: "Datum", value: "\(viewModel.date.toString(format: "dd MMMM yyyy"))")
+				LabeledValueView(label: "Date", value: "\(viewModel.date.toString(format: "dd MMMM yyyy"))")
 				DividerView()
 				
 				HStack {
-					Text("Tijdstip")
+					Text("Timestamp")
 						.foregroundStyle(.secondaryText)
 						.frame(maxWidth: 100, alignment: .leading)
 					Menu {
@@ -51,11 +51,11 @@ struct CalendarAddView: View {
 						.frame(maxWidth: .infinity, alignment: .leading)
 				}.padding()
 				
-				ButtonView(text: "Recept opslaan", action: {handleClickSave()})
+				ButtonView(text: "Save recipe", action: {handleClickSave()})
 					.frame(maxHeight: .infinity, alignment: .bottom)
 			}.frame(
 				maxHeight: .infinity, alignment: .top
-			).navigationTitle("Voeg recept toe").background(.whiteLightest)
+			).navigationTitle("Add recipe").background(.whiteLightest)
     }
 }
 
@@ -63,7 +63,7 @@ struct CalendarAddView: View {
 	CalendarAddView(
 		viewModel: ViewModelFactory()
 			.makeCalendarAddViewModel(
-				recipe: Recipe(id: 2, title: "Pizza", image: ""),
+				recipe: Recipe(id: 2, title: "Pizza"),
 				date: Date()
 			)
 		)

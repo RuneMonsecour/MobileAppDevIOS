@@ -8,7 +8,7 @@
 import Foundation
 
 enum EMealTime: String, CaseIterable, Codable, Hashable {
-	case Breakfast = "Ontbijt"
-	case Lunch = "Middagmaal"
-	case Dinner = "Avondeten"
+	case Breakfast = "Breakfast"
+	case Lunch = "Lunch"
+	case Dinner = "Dinner"
 }

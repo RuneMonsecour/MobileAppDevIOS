@@ -52,8 +52,7 @@ class RecipeDetailsViewModel: ObservableObject {
 				.addFavoriteRecipe(
 					recipe: Recipe(
 						id: recipe!.id,
-						title: recipe!.title,
-						image: recipe!.image
+						title: recipe!.title
 					)
 				)
 		}

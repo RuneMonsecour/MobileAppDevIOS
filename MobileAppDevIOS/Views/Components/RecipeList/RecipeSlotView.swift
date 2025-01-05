@@ -22,5 +22,5 @@ struct RecipeSlotView: View {
 }
 
 #Preview {
-	RecipeSlotView(recipe: Recipe(id: 2, title: "Pizza", image: ""))
+	RecipeSlotView(recipe: Recipe(id: 2, title: "Pizza"))
 }

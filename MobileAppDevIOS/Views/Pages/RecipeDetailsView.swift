@@ -18,8 +18,7 @@ struct RecipeDetailsView: View {
 					.makeCalendarAddViewModel(
 						recipe: Recipe(
 							id: viewModel.recipe?.id ?? -1,
-							title: viewModel.recipe?.title ?? "",
-							image: viewModel.recipe?.image ?? ""
+							title: viewModel.recipe?.title ?? ""
 						),
 						date: calendarDay.date
 					)
@@ -35,7 +34,7 @@ struct RecipeDetailsView: View {
 		NavigationStack {
 			AsyncDataView(
 				isLoading: viewModel.isLoading,
-				isLoadingMessage: "Recept aan het laden...",
+				isLoadingMessage: "Loading recipe...",
 				error: viewModel.error
 			) {
 				VStack {
@@ -44,12 +43,12 @@ struct RecipeDetailsView: View {
 							Text(viewModel.recipe?.summary ?? "")
 							
 							VStack(spacing: 4) {
-								Text("Instructies").font(Font.title2)
+								Text("Instructions").font(Font.title2)
 								Text(viewModel.recipe?.instructions ?? "")
 							}
 							
 							VStack(spacing: 4) {
-								Text("Ingredienten").font(Font.title2)
+								Text("Ingredients").font(Font.title2)
 								VStack(spacing: 4) {
 									ForEach(viewModel.recipe?.extendedIngredients ?? [], id: \.self) { ingredient in
 										Text(
@@ -69,7 +68,7 @@ struct RecipeDetailsView: View {
 							slotDestinationOverride: getCalendarDestination
 						)
 					) {
-						ButtonView(text: "Voeg toe aan kalender")
+						ButtonView(text: "Add to calendar")
 							.disabled(viewModel.isLoading)
 					}
 					
@@ -91,7 +90,7 @@ struct RecipeDetailsView: View {
 #Preview {
 	RecipeDetailsView(
 		viewModel: ViewModelFactory()
-			.makeRecipeDetailsViewModel(recipe: Recipe(id: 725469, title: "Pizza", image: ""))
+			.makeRecipeDetailsViewModel(recipe: Recipe(id: 725469, title: "Pizza"))
 	).environmentObject(ViewModelFactory())
 }
 

@@ -8,8 +8,8 @@
 import Foundation
 
 enum ERoute: String, CaseIterable {
-	case recipes = "Recepten"
-	case calendar = "Kalender"
+	case recipes = "Recipes"
+	case calendar = "Calendar"
 	
 	func getIndex() -> Int {
 		return ERoute.allCases.firstIndex(where: {route in route == self})!

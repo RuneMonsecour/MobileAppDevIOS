@@ -10,7 +10,6 @@ import Foundation
 struct Ingredient : Decodable, Identifiable, Hashable {
 	let id: Int
 	let nameClean: String
-	let image: String
 	let measures: Measures
 	
 	struct Measures : Decodable, Hashable {

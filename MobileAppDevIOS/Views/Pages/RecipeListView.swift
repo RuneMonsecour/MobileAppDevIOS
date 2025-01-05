@@ -67,7 +67,7 @@ struct RecipeListView: View {
 				
 					AsyncDataView(
 						isLoading: viewModel.isLoading,
-						isLoadingMessage: "Recepten aan het laden...",
+						isLoadingMessage: "Loading recipes...",
 						error: viewModel.error
 					) {
 						VStack {
