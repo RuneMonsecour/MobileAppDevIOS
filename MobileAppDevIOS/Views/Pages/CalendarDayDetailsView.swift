@@ -25,7 +25,28 @@ struct CalendarDayDetailsView: View {
 	var body: some View {
 		NavigationStack {
 			VStack{
-				VStack {}.frame(maxWidth: .infinity, maxHeight: .infinity)
+				ScrollView {
+					ForEach(EMealTime.allCases, id: \.self) { mealTime in
+						VStack {
+							Text(mealTime.rawValue)
+								.font(Font.title)
+								.frame(maxWidth: .infinity, alignment: .leading)
+							
+							VStack(spacing: 5) {
+								ForEach(
+									viewModel.calendarDay.dayRecipes[mealTime] ?? [],
+									id: \.self
+								) { recipe in
+									RecipeEntryView(recipe: recipe)
+								}
+							}.padding(2).frame(maxWidth: .infinity, alignment: .leading)
+						}.padding(20).frame(maxWidth: .infinity, alignment: .leading)
+					}
+				}.frame(
+					maxWidth: .infinity,
+					maxHeight: .infinity,
+					alignment: .top
+				)
 				
 				NavigationLink(
 					destination: RecipeListView(
@@ -46,3 +67,4 @@ struct CalendarDayDetailsView: View {
 		viewModel: ViewModelFactory().makeCalendarDayDetailsViewModel(calendarDay: CalendarDay(date: Date()))
 	).environmentObject(ViewModelFactory())
 }
+

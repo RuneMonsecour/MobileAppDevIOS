@@ -13,10 +13,8 @@ struct CalendarPlannedRecipeView: View {
 	var body: some View {
 		Text(String(plannedRecipeCount))
 			.foregroundStyle(.white)
-			.frame(maxWidth: .infinity)
-			.padding(4)
+			.padding(10)
 			.background(.primary).cornerRadius(5)
-			.padding(4)
 	}
 }
 
