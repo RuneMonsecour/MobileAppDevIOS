@@ -17,9 +17,9 @@ struct RecipeDetailsView: View {
 				viewModel: viewModelFactory
 					.makeCalendarAddViewModel(
 						recipe: Recipe(
-							id: viewModel.recipe.id,
-							title: viewModel.recipe.title,
-							image: viewModel.recipe.image
+							id: viewModel.recipe?.id ?? -1,
+							title: viewModel.recipe?.title ?? "",
+							image: viewModel.recipe?.image ?? ""
 						),
 						date: calendarDay.date
 					)
@@ -29,21 +29,48 @@ struct RecipeDetailsView: View {
 	
 	var body: some View {
 		NavigationStack {
-			VStack {
-				VStack {}.frame(maxWidth: .infinity, maxHeight: .infinity)
-				
-				NavigationLink(
-					destination: CalendarView(
-						viewModel: viewModelFactory.makeCalendarViewModel(),
-						slotDestinationOverride: getCalendarDestination
-					)
-				) {
-					ButtonView(text: "Voeg toe aan kalender")
-				}
-				
-			}.frame(maxWidth: .infinity, maxHeight: .infinity).background(.whiteLightest).navigationTitle(
-				"\(viewModel.recipe.title)"
-			)
+			AsyncDataView(
+				isLoading: viewModel.isLoading,
+				isLoadingMessage: "Recept aan het laden...",
+				error: viewModel.error
+			) {
+				VStack {
+					VStack(spacing: 40) {
+						Text(viewModel.recipe?.summary ?? "")
+						
+						VStack(spacing: 4) {
+							Text("Instructies").font(Font.title2)
+							Text(viewModel.recipe?.instructions ?? "")
+						}
+						
+						VStack(spacing: 4) {
+							Text("Ingredienten").font(Font.title2)
+							VStack(spacing: 4) {
+								ForEach(viewModel.recipe?.extendedIngredients ?? [], id: \.self) { ingredient in
+									Text(
+										String(
+											ingredient.measures.metric.amount
+										)+ingredient.measures.metric.unitShort + " " + ingredient.nameClean
+									)
+								}
+							}
+						}
+					}.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+					
+					NavigationLink(
+						destination: CalendarView(
+							viewModel: viewModelFactory.makeCalendarViewModel(),
+							slotDestinationOverride: getCalendarDestination
+						)
+					) {
+						ButtonView(text: "Voeg toe aan kalender")
+							.disabled(viewModel.isLoading)
+					}
+					
+				}.frame(maxWidth: .infinity, maxHeight: .infinity).background(.whiteLightest).navigationTitle(
+					"\(viewModel.recipe?.title ?? "")"
+				)
+			}
 		}
 	}
 }

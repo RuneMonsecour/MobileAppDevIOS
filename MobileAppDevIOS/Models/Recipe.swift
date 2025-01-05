@@ -23,6 +23,9 @@ struct Recipe : Identifiable, Hashable, Codable {
 		let id: Int
 		let title: String
 		let image: String
+		let summary: String
+		let instructions: String
+		let extendedIngredients: [Ingredient]
 	}
 }
 
