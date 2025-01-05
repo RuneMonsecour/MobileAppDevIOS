@@ -37,7 +37,12 @@ struct CalendarDayDetailsView: View {
 									viewModel.calendarDay.dayRecipes[mealTime] ?? [],
 									id: \.self
 								) { recipe in
-									RecipeEntryView(recipe: recipe)
+									RecipeEntryView(
+										recipe: recipe,
+										onRemove: { recipeId in
+											viewModel.removeRecipe(recipeId: recipeId, mealTime: mealTime)
+										}
+									)
 								}
 							}.padding(2).frame(maxWidth: .infinity, alignment: .leading)
 						}.padding(20).frame(maxWidth: .infinity, alignment: .leading)

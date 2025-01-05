@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "2D1B7BB9-21F4-42A9-A4B5-209410C7C8BA",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MobileAppDevIOS.xcodeproj",
+      "identifier" : "CD90F0732CCBD051009BF8FA",
+      "name" : "MobileAppDevIOS"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:MobileAppDevIOS.xcodeproj",
+        "identifier" : "CD90F0842CCBD052009BF8FA",
+        "name" : "MobileAppDevIOSTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:MobileAppDevIOS.xcodeproj",
+        "identifier" : "CD90F08E2CCBD052009BF8FA",
+        "name" : "MobileAppDevIOSUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -13,7 +13,7 @@ class HttpClient {
 		baseUrl: "https://api.spoonacular.com/",
 		headers: [
 			"Content-Type": "application/json",
-			"x-api-key": ""
+			"x-api-key": ENV.apiKey
 		]
 	)
 	
@@ -43,7 +43,11 @@ class HttpClient {
 				let decodedObject = try JSONDecoder().decode(T.self, from: data)
 				return .success(httpResponse.statusCode, decodedObject)
 			} else {
-				return .failure(httpResponse.statusCode, String(httpResponse.statusCode) + ": Er ging iets fout.")
+				 if let errorString = String(data: data, encoding: .utf8) {
+					return .failure(httpResponse.statusCode, errorString)
+				} else {
+					return .failure(httpResponse.statusCode, "Unknown error occurred.")
+				}
 			}
 		} catch {
 			return .failure(400, "Netwerk fout")

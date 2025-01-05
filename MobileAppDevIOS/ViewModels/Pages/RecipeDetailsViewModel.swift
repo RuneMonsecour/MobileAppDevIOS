@@ -34,16 +34,7 @@ class RecipeDetailsViewModel: ObservableObject {
 		if(result.isSuccess()) {
 			recipe = result.getData()
 		} else {
-			recipe = Recipe
-				.Information(
-					id: 2,
-					title: "pizza",
-					image: "",
-					summary: "yqsrgfguyirysdrygyrgyfd ggdfsg idfs hdfsyidsfyh dsfydydf  dsfgiuhdssdfuyi ufhf ou",
-					instructions: "672tv8 g386574g8g635 6785y654 745368g 45678 543845385434545 6545",
-					extendedIngredients: [Ingredient(id: 4, nameClean: "spruiten", image: "", measures: Ingredient.Measures(metric: Ingredient.Measure(amount: 45, unitShort: "g")))]
-				)
-//			self.error = result.error;
+			self.error = result.error;
 		}
 		
 		isLoading = false;

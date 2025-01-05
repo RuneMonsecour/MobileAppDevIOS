@@ -22,4 +22,13 @@ class CalendarDayDetailsViewModel: ObservableObject {
 	func retrieveCalendarDay(date: Date) {
 		self.calendarDay = calendarDayService.getCalendarDay(date: date)
 	}
+	
+	func removeRecipe(recipeId: Int, mealTime: EMealTime) {
+		calendarDayService
+			.removePlannedRecipe(
+				recipeId: recipeId,
+				mealTime: mealTime,
+				date: calendarDay.date
+			)
+	}
 }

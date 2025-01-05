@@ -27,6 +27,7 @@
 		CD90F0742CCBD051009BF8FA /* MobileAppDevIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileAppDevIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD90F0852CCBD052009BF8FA /* MobileAppDevIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MobileAppDevIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD90F08F2CCBD052009BF8FA /* MobileAppDevIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MobileAppDevIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDBF7D1B2D2AF29400A1399A /* MobileAppDevIOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MobileAppDevIOS.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +76,7 @@
 		CD90F06B2CCBD051009BF8FA = {
 			isa = PBXGroup;
 			children = (
+				CDBF7D1B2D2AF29400A1399A /* MobileAppDevIOS.xctestplan */,
 				CD90F0762CCBD051009BF8FA /* MobileAppDevIOS */,
 				CD90F0882CCBD052009BF8FA /* MobileAppDevIOSTests */,
 				CD90F0922CCBD052009BF8FA /* MobileAppDevIOSUITests */,

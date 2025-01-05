@@ -11,7 +11,10 @@ class RecipeService {
 	func getRecipes(query: String = "") async -> Result<Recipe.ComplexSearch> {
 		var params = ""
 		if(!query.isEmpty) {
-			params = "?query=\"" + query + "\""
+			params = "?query=" + query
+			print(params)
+		}else{
+			return Result.failure(456, "aaaah")
 		}
 		return await HttpClient.spoonacular.get(
 			endpoint: "recipes/complexSearch" + params
@@ -40,7 +43,7 @@ class RecipeService {
 	}
 	
 	private func getFavorites() -> [Recipe] {
-		return LocalStorage.get(forKey: "favoriteRecipes") ?? [Recipe(id: 2, title: "Pizza", image: ""),Recipe(id: 24, title: "qweqwe", image: ""),Recipe(id: 22, title: "cvbcvb", image: ""),Recipe(id: 23, title: "sdfsdf", image: ""),Recipe(id: 255, title: "yukyuk", image: "")]
+		return LocalStorage.get(forKey: "favoriteRecipes") ?? []
 	}
 	
 	private func setFavorites(recipes: [Recipe]) {
