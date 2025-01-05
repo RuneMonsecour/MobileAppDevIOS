@@ -15,12 +15,6 @@ class CalendarDayDetailsViewModel: ObservableObject {
 	init(calendarDayService: CalendarDayService, calendarDay: CalendarDay) {
 		self.calendarDayService = calendarDayService
 		self.calendarDay = calendarDay
-		
-		retrieveCalendarDay(date: calendarDay.date)
-	}
-	
-	func retrieveCalendarDay(date: Date) {
-		self.calendarDay = calendarDayService.getCalendarDay(date: date)
 	}
 	
 	func removeRecipe(recipeId: Int, mealTime: EMealTime) {
@@ -30,5 +24,8 @@ class CalendarDayDetailsViewModel: ObservableObject {
 				mealTime: mealTime,
 				date: calendarDay.date
 			)
+		calendarDay
+			.dayRecipes[mealTime]?
+			.removeAll(where: {recipe in recipe.id == recipeId})
 	}
 }

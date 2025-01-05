@@ -29,10 +29,20 @@ class HttpClient {
 		self.session = URLSession(configuration: configuration)
 	}
 	
-	func get<T: Decodable>(endpoint: String) async -> Result<T> {
+	func get<T: Decodable>(endpoint: String, queryItems: [URLQueryItem]? = nil) async -> Result<T> {
 		do {
+			var components = URLComponents(url: baseURL.appendingPathComponent(endpoint), resolvingAgainstBaseURL: true)!
+			
+			// Add query parameters
+			components.queryItems = queryItems
+			
+			// Ensure the final URL is valid
+			guard let url = components.url else {
+				return .failure(500, "Verkeerde URL")
+			}
+			
 			let (data, response) = try await session.data(
-				from: baseURL.appending(path: endpoint)
+				from: url
 			)
 	
 			guard let httpResponse = response as? HTTPURLResponse else {
@@ -43,11 +53,7 @@ class HttpClient {
 				let decodedObject = try JSONDecoder().decode(T.self, from: data)
 				return .success(httpResponse.statusCode, decodedObject)
 			} else {
-				 if let errorString = String(data: data, encoding: .utf8) {
-					return .failure(httpResponse.statusCode, errorString)
-				} else {
-					return .failure(httpResponse.statusCode, "Unknown error occurred.")
-				}
+				return .failure(httpResponse.statusCode, String(httpResponse.statusCode) + ": Er ging iets fout.")
 			}
 		} catch {
 			return .failure(400, "Netwerk fout")

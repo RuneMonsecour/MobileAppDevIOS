@@ -8,20 +8,18 @@
 import Foundation
 
 class RecipeService {
-	func getRecipes(query: String = "") async -> Result<Recipe.ComplexSearch> {
-		var params = ""
+	func getRecipes(offset: Int, query: String = "") async -> Result<Recipe.ComplexSearch> {
+		var params = [URLQueryItem(name: "offset", value: String(offset))]
 		if(!query.isEmpty) {
-			params = "?query=" + query
-			print(params)
-		}else{
-			return Result.failure(456, "aaaah")
+			params = [URLQueryItem(name: "query", value: query)]
 		}
 		return await HttpClient.spoonacular.get(
-			endpoint: "recipes/complexSearch" + params
+			endpoint: "recipes/complexSearch",
+			queryItems: params
 		)
 	}
 	
-	func getFavoriteRecipes(query: String = "") -> Result<Recipe.ComplexSearch> {
+	func getFavoriteRecipes(offset: Int, query: String = "") -> Result<Recipe.ComplexSearch> {
 		let favorates = getFavorites()
 		return Result
 			.success(
@@ -30,7 +28,7 @@ class RecipeService {
 					.ComplexSearch(
 						results: favorates,
 						offset: 0,
-						number: 5,
+						number: 10,
 						totalResults: favorates.count
 					)
 			)

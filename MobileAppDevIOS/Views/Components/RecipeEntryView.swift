@@ -13,7 +13,7 @@ struct RecipeEntryView: View {
 	
     var body: some View {
 			HStack {
-				Text(recipe.title).foregroundStyle(.primaryText)
+				Text(recipe.title).foregroundStyle(.primaryText).frame(maxWidth: .infinity, alignment: .leading)
 				if(onRemove != nil) {
 					Button(action: {onRemove!(recipe.id)}) {
 						Image(ImageResource.closeIcon).imageScale(.large)

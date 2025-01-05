@@ -6,5 +6,5 @@
 //
 
 class ENV {
-	static let apiKey = ""
+	static let apiKey = "1f5d5903235c4a338e1815760c921838"
 }

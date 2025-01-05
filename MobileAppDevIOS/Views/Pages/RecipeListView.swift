@@ -29,7 +29,13 @@ struct RecipeListView: View {
 	
 	func handleSubmitSearch() {
 		Task {
-			await viewModel.retrieveRecipes()
+			await viewModel.retrieveRecipes(offset: 0)
+		}
+	}
+	
+	func handleChangePage(offset: Int) {
+		Task {
+			await viewModel.retrieveRecipes(offset: offset)
 		}
 	}
 	
@@ -59,12 +65,18 @@ struct RecipeListView: View {
 					)
 				}.padding(.bottom, 10).padding(.horizontal, 20)
 				
-				VStack{
 					AsyncDataView(
 						isLoading: viewModel.isLoading,
 						isLoadingMessage: "Recepten aan het laden...",
 						error: viewModel.error
 					) {
+						VStack {
+							PaginatorView(
+								onChangePage: handleChangePage,
+								offset: viewModel.recipes.offset,
+								number: viewModel.recipes.number,
+								totalResults: 	viewModel.recipes.totalResults)
+						
 						ScrollView {
 							LazyVGrid(columns: [GridItem(.adaptive(minimum: 170))]) {
 								ForEach(viewModel.recipes.results) { recipe in

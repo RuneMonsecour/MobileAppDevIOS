@@ -39,27 +39,29 @@ struct RecipeDetailsView: View {
 				error: viewModel.error
 			) {
 				VStack {
-					VStack(spacing: 40) {
-						Text(viewModel.recipe?.summary ?? "")
-						
-						VStack(spacing: 4) {
-							Text("Instructies").font(Font.title2)
-							Text(viewModel.recipe?.instructions ?? "")
-						}
-						
-						VStack(spacing: 4) {
-							Text("Ingredienten").font(Font.title2)
+					ScrollView{
+						VStack(spacing: 40){
+							Text(viewModel.recipe?.summary ?? "")
+							
 							VStack(spacing: 4) {
-								ForEach(viewModel.recipe?.extendedIngredients ?? [], id: \.self) { ingredient in
-									Text(
-										String(
-											ingredient.measures.metric.amount
-										)+ingredient.measures.metric.unitShort + " " + ingredient.nameClean
-									)
+								Text("Instructies").font(Font.title2)
+								Text(viewModel.recipe?.instructions ?? "")
+							}
+							
+							VStack(spacing: 4) {
+								Text("Ingredienten").font(Font.title2)
+								VStack(spacing: 4) {
+									ForEach(viewModel.recipe?.extendedIngredients ?? [], id: \.self) { ingredient in
+										Text(
+											String(
+												ingredient.measures.metric.amount
+											)+ingredient.measures.metric.unitShort + " " + ingredient.nameClean
+										)
+									}
 								}
 							}
 						}
-					}.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+					}.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top).padding(5)
 					
 					NavigationLink(
 						destination: CalendarView(

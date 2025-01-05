@@ -26,7 +26,7 @@ class RecipeListViewModel: ObservableObject {
 		self.recipeService = recipeService
 		
 		Task {
-			await retrieveRecipes();
+			await retrieveRecipes(offset: 0);
 		}
 	}
 	
@@ -40,19 +40,19 @@ class RecipeListViewModel: ObservableObject {
 			totalResults: 0
 		)
 		
-		await	retrieveRecipes()
+		await	retrieveRecipes(offset: 0)
 	}
 	
 	@MainActor
-	func retrieveRecipes() async {
+	func retrieveRecipes(offset: Int) async {
 		isLoading = true;
 		self.error = nil
 		
 		let result: Result<Recipe.ComplexSearch>
 		if (showFavorites) {
-			result = recipeService.getFavoriteRecipes(query: currentQuery)
+			result = recipeService.getFavoriteRecipes(offset: offset, query: currentQuery)
 		} else {
-			result = await recipeService.getRecipes(query: currentQuery)
+			result = await recipeService.getRecipes(offset: offset, query: currentQuery)
 		}
 		if(result.isSuccess()) {
 			recipes = result.getData()
