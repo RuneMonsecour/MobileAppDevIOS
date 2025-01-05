@@ -27,10 +27,6 @@ class Router: ObservableObject {
 			AnyView(
 				RecipeListView(viewModel: viewModelFactory.makeRecipeListViewModel())
 			)
-		case .dashboard:
-			AnyView(
-				DashboardView()
-			)
 		}
 	}
 	

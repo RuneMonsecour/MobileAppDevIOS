@@ -8,7 +8,6 @@
 import Foundation
 
 enum ERoute: String, CaseIterable {
-	case dashboard = "Dashboard"
 	case recipes = "Recepten"
 	case calendar = "Kalender"
 	

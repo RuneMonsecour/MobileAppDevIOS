@@ -12,12 +12,12 @@ struct RecipeEntryView: View {
 	
     var body: some View {
 			HStack {
-				Text(recipe.title)
+				Text(recipe.title).foregroundStyle(.primaryText)
 				Image(recipe.image)
-			}.padding().frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading).border(
-				.gray,
-				width: 0.5
-			)
+			}.padding().frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading).background(
+				RoundedRectangle(cornerRadius: 10)
+					.stroke(Color.gray, lineWidth: 0.5)
+			).padding(1)
     }
 }
 

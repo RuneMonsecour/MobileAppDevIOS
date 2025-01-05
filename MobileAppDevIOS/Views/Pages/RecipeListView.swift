@@ -74,7 +74,7 @@ struct RecipeListView: View {
 									NavigationLink(
 										destination: getSlotDestination(recipe: recipe)
 									) {
-										RecipeSlotView(recipe: recipe)
+										RecipeEntryView(recipe: recipe)
 									}.frame(maxWidth: .infinity)
 								}
 							}

@@ -18,7 +18,6 @@ struct NavMenuView: View {
 		switch route {
 		case .calendar: return (.calendarIcon, .calendarFillIcon)
 		case .recipes: return (.menuBookIcon, .menuBookFillIcon)
-		case .dashboard: return (.barChartIcon, .barChartFillIcon)
 		}
 	}
 	
